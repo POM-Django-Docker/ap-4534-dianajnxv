@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %}
+<h2>Authors Management</h2>
+
+{% if user.role == 1 %}
+<a href="{% url 'create_author' %}">
+  <button style="background-color: #007bff">+ Add New Author</button>
+</a>
+{% endif %}
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for author in authors %}
+    <tr>
+      <td>{{ author.id }}</td>
+      <td>{{ author.name }} {{ author.surname }}</td>
+      <td>
+        {% if user.role == 1 %} {% if author.book_set.count == 0 %}
+        <form
+          action="{% url 'delete_author' author.id %}"
+          method="POST"
+          style="margin: 0"
+        >
+          {% csrf_token %}
+          <button
+            type="submit"
+            class="btn-delete"
+            onclick="return confirm('Are you sure?');"
+          >
+            Delete
+          </button>
+        </form>
+        {% else %}
+        <span style="color: #666; font-size: 0.9em">(Attached to books)</span>
+        {% endif %} {% else %}
+        <span style="color: #999">Read-only</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">No authors found in the database.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

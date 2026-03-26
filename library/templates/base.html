@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Library Management System</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 40px;
+        background-color: #f9f9f9;
+      }
+      nav {
+        background: #333;
+        color: white;
+        padding: 15px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin-right: 15px;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+      }
+      input,
+      select,
+      button {
+        margin: 10px 0;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+        border: none;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      .btn-delete {
+        background-color: #dc3545;
+      }
+      .btn-delete:hover {
+        background-color: #c82333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'author_list' %}">Authors List</a>
+      <a href="{% url 'user_list' %}">Users List</a>
+
+      {% if user.is_authenticated %}
+      <span>
+        Logged in as: <strong>{{ user.email }}</strong>
+        (Role: {{ user.get_role_name }})
+      </span>
+      |
+      <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+      <a href="{% url 'login' %}">Login</a> |
+      <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </nav>
+
+    <div class="container">{% block content %}{% endblock %}</div>
+  </body>
+</html>

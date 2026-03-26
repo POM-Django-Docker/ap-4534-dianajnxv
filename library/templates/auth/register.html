@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block content %}
+<h2>User Registration</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label>Email Address:</label>
+  <input type="email" name="email" placeholder="example@mail.com" required />
+
+  <label>Password:</label>
+  <input type="password" name="password" required />
+
+  <label>First Name:</label>
+  <input type="text" name="first_name" />
+
+  <label>Last Name:</label>
+  <input type="text" name="last_name" />
+
+  <label>Select Role:</label>
+  <select name="role">
+    <option value="0">Guest (Visitor)</option>
+    <option value="1">Librarian</option>
+  </select>
+
+  <button type="submit">Sign Up</button>
+</form>
+<p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+{% endblock %}

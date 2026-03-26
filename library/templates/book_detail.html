@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+<div
+  style="
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  "
+>
+  <a href="{% url 'books_list' %}" style="color: #6c757d; text-decoration: none"
+    >← Back to list</a
+  >
+  <h1 style="margin-top: 20px; color: #2c3e50">{{ book.name }}</h1>
+  <p style="font-size: 1.2em; color: #007bff">
+    Author: {{ book.author.name }} {{ book.author.surname }}
+  </p>
+
+  <div style="margin: 25px 0; line-height: 1.6; color: #4a4a4a">
+    <h3>Description</h3>
+    <p>{{ book.description }}</p>
+  </div>
+
+  <div style="padding: 15px; background: #f8f9fa; border-radius: 6px">
+    <p><b>Available in stock:</b> {{ book.count }}</p>
+  </div>
+</div>
+{% endblock %}

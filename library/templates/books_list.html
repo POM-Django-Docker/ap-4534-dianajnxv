@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block content %}
+<div style="padding: 20px; font-family: sans-serif">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    "
+  >
+    <h2>📚 Library Catalog</h2>
+
+    <form
+      action="{% url 'books_filter' %}"
+      method="GET"
+      style="display: flex; gap: 10px"
+    >
+      <input
+        type="text"
+        name="name"
+        placeholder="Search by title..."
+        style="padding: 8px; border: 1px solid #ccc; border-radius: 4px"
+      />
+      <button
+        type="submit"
+        style="
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 8px 15px;
+          border-radius: 4px;
+          cursor: pointer;
+        "
+      >
+        Search
+      </button>
+    </form>
+  </div>
+
+  <table
+    style="
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <thead>
+      <tr
+        style="
+          background-color: #f8f9fa;
+          border-bottom: 2px solid #dee2e6;
+          text-align: left;
+        "
+      >
+        <th style="padding: 15px">Title</th>
+        <th style="padding: 15px">Author</th>
+        <th style="padding: 15px">Count</th>
+        <th style="padding: 15px">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr style="border-bottom: 1px solid #eee">
+        <td style="padding: 15px">
+          <a
+            href="{% url 'book_detail' book.id %}"
+            style="text-decoration: none; color: #007bff; font-weight: bold"
+          >
+            {{ book.name }}
+          </a>
+        </td>
+        <td style="padding: 15px">
+          {{ book.author.name }} {{ book.author.surname }}
+        </td>
+        <td style="padding: 15px">
+          <span
+            style="
+              padding: 3px 8px;
+              background: #e2e3e5;
+              border-radius: 12px;
+              font-size: 0.9em;
+            "
+          >
+            {{ book.count }} left
+          </span>
+        </td>
+        <td style="padding: 15px">
+          <a
+            href="{% url 'book_detail' book.id %}"
+            style="font-size: 0.9em; color: #6c757d"
+            >View details →</a
+          >
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" style="padding: 30px; text-align: center; color: #999">
+          No books found matching your criteria.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
